@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <title>Apache Test!</title>
+  </head>
+  <body>
+    <?
+       echo "<p>Php working!!</p>" ;
+       $db = mysql_connect("origin_learn","root","");
+       ?>
+    <p> Hurray !!! It worked. </p>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome!!</title>
+	<script type="text/javascript">
+		function is_loggedin(){
+			var login_state_req = new XMLHttpRequest();
+                        
+            login_state_req.open('POST', '/api/');
+            login_state_req.setRequestHeader("Content-type", "application/json");
+            login_state_req.send();
+
+            login_state_req.onreadystatechange = function()
+                {
+                    if (login_state_req.readyState == 4 && login_state_req.status == 200)
+                    {                  
+                        var response = JSON.parse(login_state_req.responseText);
+
+                        if(response.loggedin){
+                        	window.location.href='/profile.html';
+                            //window.location.href = '/node/logged_in';
+                        }else{
+                            document.getElementById('status').innerHTML = node_response('/logged_in_stat').response;
+                        }
+                    }
+                }
+		}
+
+        function node_response(url_str){
+            var node_response_req = new XMLHttpRequest();
+            node_response_req.open('POST','/node'+url_str);
+            node_response_req.setRequestHeader('Content-type','application/json');
+            node_response_req.send();
+
+            node_response_req.onreadystatechange == function()
+                {                
+                    if (node_response_req.readyState == 4){
+                        if(node_response_req.status == 200){
+                            alert(node_response_req.responseText);
+                            response = JSON.parse(node_response_req.responseText);
+                            return response;
+                        }
+                    }
+                }
+        }
+
+	</script>
+
+</head>
+<body onload="is_loggedin();">
+    <div id='status'></div>
+	New here: <a href="/register.html">Register</a><br>
+	Already a member : <a href="/login.html">Login</a>
+</body>
+</html>

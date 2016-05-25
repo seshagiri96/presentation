@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Your Profile
+	</title>
+
+	<script type="text/javascript">
+		function fetch_user_details() {
+			var profile_data_req = new XMLHttpRequest();
+
+			profile_data_req.open("POST","/api/profile_end");
+			profile_data_req.setRequestHeader("Content-type", "application/json");
+			profile_data_req.send();
+
+			profile_data_req.onreadystatechange = function(){
+				if (profile_data_req.readyState == 4 && profile_data_req.status == 200){
+					response = JSON.parse(profile_data_req.responseText);
+					if(response.loggedin){
+						//document.getElementById('firstname').innerHTML = 'Firstname :'+response.firstname;
+						//document.getElementById('lastname' ).innerHTML = 'Lastname  :'+response.lastname ;
+						//document.getElementById('username' ).innerHTML = 'Username  :'+response.username  ;
+						//document.getElementById('biodata'  ).innerHTML = 'Biodata   :'+response.biodata  ;
+						node_resp = node_response('/logged_in_stat');
+											//alert(node_resp.response)
+						if (node_resp){
+							document.getElementById('status'   ).innerHTML = 'Status ' + node_resp.response;
+						}else{
+							document.getElementById('status'   ).innerHTML = 'Status not received from node server';
+						}
+					}else{
+						window.location.href="/login.html";
+					}
+				}
+			}
+		}
+
+		function logout(){
+			var logout_req = new XMLHttpRequest();
+
+			logout_req.open("POST","/api/logout_end");
+			logout_req.setRequestHeader("Content-type", "application/json");
+			logout_req.send();
+
+			logout_req.onreadystatechange = function(){
+				if (logout_req.readyState == 4 ){
+					if (logout_req.status == 200){
+						response = JSON.parse(logout_req.responseText);
+						if(response.loggedout){
+							//alert('logged out');
+							window.location.href = "/logout.html";
+						}else{
+							alert("Some network problem!!");
+						}
+					}
+				}
+			}
+		}
+
+		function node_response(url_str){
+			var node_response_req = new XMLHttpRequest();
+			node_response_req.open("POST",'/node'+url_str);
+			node_response_req.setRequestHeader("Content-type","application/json");
+			node_response_req.send();
+
+			node_response_req.onreadystatechange = function()
+			{
+				if (node_response_req.readyState==4 && node_response_req.status == 200){
+					response = JSON.parse(node_response_req.responseText);					
+				}
+			}
+			return response;
+		}
+	</script>
+</head>
+<body onload="fetch_user_details();">
+
+	Successfully logged in!!<br>
+	User Details:<br>
+	<div id="userprofile">
+		<div id="firstname"></div>
+		<div id="lastname" ></div>
+		<div id="username" ></div>
+		<div id="biodata"  ></div>
+		<div id="status"   ></div>
+	</div>
+	<button onclick="logout();">logout</button> 
+</body>
+</html>

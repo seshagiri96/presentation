@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Page</title>
+	<script type="text/javascript" src="/login_end.js"></script>
+
+          
+</head>
+<body>
+	<form action="profile.html" method="post">
+		Username :<input type="text"     id="username"     placeholder="Your username"><br>
+		Password :<input type="password" id="password" placeholder="********" ><br>
+		<input type="hidden" name="secret" id="secret" value="shhh"> 
+		<input type="button" name="login" value="Login" onclick="call_loginend()">
+	</form>	
+	<div id="response"></div>
+</body>
+</html>

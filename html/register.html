@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Form</title>
+	<script type="text/javascript" src="/register_end.js">
+    </script>
+</head>
+<body>
+	<form action="" method="post">
+		Firstname : <input type="text" 		id="firstname" placeholder="Eg :John" 		    ><br>
+		Lastname  : <input type="text" 		id="lastname"  placeholder="Eg: Doe" 		    ><br>
+		Username  : <input type="text" 		id="username"  placeholder="Eg: johnd" 	        ><br>
+		Password  : <input type="password" 	id="password"  placeholder="********" 	        ><br>
+		<input type="hidden" name="secret" id="secret" value="shhh"> 
+		Bio		  : <br><textarea rows="5" cols="50" placeholder="Eg: I am a engineer" id="biodata"></textarea><br>
+		<input type="button" name="submit" value="Submit" onclick="call_registerend()" />
+	</form>
+	<div>
+		<p id="response"></p>
+	</div>
+
+</body>
+</html>
